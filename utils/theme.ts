@@ -19,7 +19,8 @@ export const theme: {
         contrastText: '#fff'
       },
       background: {
-        default: '#fff'
+        default: '#fff',
+        paper: '#00E7DE'
       },
       text: {
         primary: '#0B262D',
@@ -43,10 +44,11 @@ export const theme: {
         contrastText: '#fff'
       },
       background: {
-        default: '#0B262D'
+        default: '#0B262D',
+        paper: '#3FEEA5'
       },
       text: {
-        primary: '#ededed',
+        primary: '#0B262D',
         secondary: '#fff'
       }
     }
