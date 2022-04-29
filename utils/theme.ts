@@ -35,7 +35,7 @@ export const theme: {
         main: '#3FEEA5',
         light: '#3FEEA5',
         dark: '#3FEEA5',
-        contrastText: '#0B262D'
+        contrastText: '#ffffff'
       },
       secondary: {
         main: '#00E7DE',
@@ -45,11 +45,11 @@ export const theme: {
       },
       background: {
         default: '#0B262D',
-        paper: '#3FEEA5'
+        paper: '#0B262D'
       },
       text: {
-        primary: '#0B262D',
-        secondary: '#fff'
+        primary: '#ffffff',
+        secondary: '#ffffff'
       }
     }
   }

@@ -30,8 +30,9 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
     () =>
       createTheme({
         ...theme[mode],
+        spacing: 8,
         shape: {
-          borderRadius: 80
+          borderRadius: 20
         }
       }),
     [mode]
