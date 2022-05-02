@@ -1,11 +1,15 @@
-import { Container, Button } from '@mui/material'
+import { Container, Button, Grid, Link } from '@mui/material'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => (
  <Container>
-  <Button size="large" variant="outlined">
-   Hello
-  </Button>
+  <Grid alignItems="center" display="flex" justifyContent="center">
+   <Link href="/contacts">
+    <Button size="large" variant="contained">
+     Go to Contacts
+    </Button>
+   </Link>
+  </Grid>
  </Container>
 )
 

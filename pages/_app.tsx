@@ -8,6 +8,7 @@ import {
   createTheme,
   CssBaseline,
   IconButton,
+  Link,
   Menu,
   Toolbar,
   Typography,
@@ -52,15 +53,16 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
      >
       <Menu open={false} />
      </IconButton>
-
-     <Typography
-      variant="h6"
-      noWrap
-      component="div"
-      sx={{ display: { xs: 'none', sm: 'block' } }}
-     >
-      Contacts
-     </Typography>
+     <Link href="/contacts">
+      <Typography
+       variant="h6"
+       noWrap
+       component="div"
+       sx={{ display: { xs: 'none', sm: 'block' } }}
+      >
+       Contacts
+      </Typography>
+     </Link>
 
      <Box sx={{ flexGrow: 1 }} />
 
@@ -70,7 +72,6 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
        aria-label="show more"
        aria-controls="primary-search-account-menu"
        aria-haspopup="true"
-       onClick={console.log}
        color="inherit"
       />
      </Box>
