@@ -27,37 +27,34 @@ const Contact = ({ contact }: { contact: ContactType }) => {
       flexDirection: 'column'
     }}
    >
-    <Typography variant="h4" mb={3}>
+    <Typography variant="h4">
      Are you sure that you want to delete this contact?
     </Typography>
-    <Grid container spacing={3}>
-     <Grid item xs={12} sm={6}>
-      <Button
-       variant="contained"
-       color="error"
-       onClick={() => {
-         axios
-           .delete(`https://bkbnchallenge.herokuapp.com/contacts/${contact._id}`)
-           .then(() => {
-             router.push('/contacts')
-           })
-           .catch(error => {
-             setAlert(error.message)
-           })
-       }}
-      >
-       Delete
-      </Button>
-     </Grid>
-     <Grid item xs={12} sm={6}>
-      <Button
-       variant="contained"
-       color="primary"
-       onClick={() => router.push('/contacts')}
-      >
-       Cancel
-      </Button>
-     </Grid>
+    <Grid container justifyContent="space-around" p={6}>
+     <Button
+      variant="outlined"
+      color="error"
+      onClick={() => {
+        axios
+          .delete(`https://bkbnchallenge.herokuapp.com/contacts/${contact._id}`)
+          .then(() => {
+            router.push('/contacts')
+          })
+          .catch(error => {
+            setAlert(error.message)
+          })
+      }}
+     >
+      Delete
+     </Button>
+
+     <Button
+      variant="outlined"
+      color="primary"
+      onClick={() => router.push('/contacts')}
+     >
+      Cancel
+     </Button>
     </Grid>
    </Container>
   </>
