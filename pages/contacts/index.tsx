@@ -126,7 +126,7 @@ const Contacts = ({
   )
 }
 
-Contacts.getInitialProps = async ({ query }: NextPageContext) => {
+export const getServerSideProps = async ({ query }: NextPageContext) => {
   // `getStaticProps` is executed on the server side.
   const { data }: { data: ResponseType } = await axios.get(
     'https://bkbnchallenge.herokuapp.com/contacts',
@@ -136,8 +136,10 @@ Contacts.getInitialProps = async ({ query }: NextPageContext) => {
   )
 
   return {
-    data,
-    query
+    props: {
+      data,
+      query
+    }
   }
 }
 

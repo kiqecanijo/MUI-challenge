@@ -62,14 +62,20 @@ const Contact = ({ contact }: { contact: ContactType }) => {
   )
 }
 
-Contact.getInitialProps = async ({ query }: { query: { id: string } }) => {
+export const getServerSideProps = async ({
+  query
+}: {
+ query: { id: string }
+}) => {
   const { id } = query
   const { data } = await axios.get(
   `https://bkbnchallenge.herokuapp.com/contacts/${id}`
   )
 
   return {
-    contact: data
+    props: {
+      contact: data
+    }
   }
 }
 
