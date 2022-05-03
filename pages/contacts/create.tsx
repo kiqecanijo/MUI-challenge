@@ -1,131 +1,149 @@
-import { Delete, Edit, Visibility } from '@mui/icons-material'
 import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   Typography,
-  Pagination,
-  Stack,
-  IconButton
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  TextField
 } from '@mui/material'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { NextPageContext } from 'next/types'
-import useSWR from 'swr'
-import { ResponseType } from '../../utils/types'
+import { useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import { emailRegex } from '../../utils/extra'
+import { State } from '../../utils/state'
 
-const Contacts = ({
-  data: serverData,
-  query
-}: {
- data: ResponseType
- query: NextPageContext['query']
-}) => {
+const Contacts = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
   const router = useRouter()
-  const { data, error } = useSWR(
-    { url: 'https://bkbnchallenge.herokuapp.com/contacts', args: query },
-    {
-      fallbackData: serverData
-    }
-  )
+  const [{ alert, ...state }, setState] = useRecoilState(State)
 
   return (
-    (error && (
-   <Typography variant="h4" color="error">
-    {error.message}
+  <Container>
+   <Typography
+    variant="h6"
+    sx={{
+      paddingY: 2
+    }}
+   >
+    Create a new contact
    </Typography>
-    )) || (
-   <Table sx={{ minWidth: 650 }} aria-label="simple table" color="ineherit">
-    <TableHead>
-     <TableRow>
-      <TableCell>Id</TableCell>
-      <TableCell align="right">Email</TableCell>
-      <TableCell align="right">First Name</TableCell>
-      <TableCell align="right">Last Name</TableCell>
-      <TableCell align="right">Phone</TableCell>
-      <TableCell colSpan={3} align="center">
-       Actions
-      </TableCell>
-     </TableRow>
-    </TableHead>
-    <TableBody>
-     {data?.results?.map(contact => (
-      <TableRow key={contact._id}>
-       <TableCell component="th" scope="row">
-        {contact._id}
-       </TableCell>
-       <TableCell align="right">{contact.firstName}</TableCell>
-       <TableCell align="right">{contact.lastName}</TableCell>
-       <TableCell align="right">{contact.email}</TableCell>
-       <TableCell align="right">{contact.phone}</TableCell>
-       <TableCell align="right">
-        <IconButton
-         color="primary"
-         onClick={() => router.push(`/contacts/${contact._id}`)}
-        >
-         <Visibility />
-        </IconButton>
-       </TableCell>
-       <TableCell align="right">
-        <IconButton
-         color="secondary"
-         onClick={() => router.push(`/contacts/${contact._id}/edit`)}
-        >
-         <Edit />
-        </IconButton>
-       </TableCell>
-       <TableCell align="right">
-        <IconButton
-         color="error"
-         onClick={() => router.push(`/contacts/${contact._id}/delete`)}
-        >
-         <Delete />
-        </IconButton>
-       </TableCell>
-      </TableRow>
-     ))}
-     <TableRow>
-      <TableCell colSpan={8} align="right">
-       <Stack>
-        <Pagination
-         count={data?.totalPages}
-         page={data?.currentPage}
-         color="primary"
-         sx={{
-           justifyContent: 'flex-end',
-           display: 'flex'
-         }}
-         onChange={(_, page) =>
-           router.push({
-             pathname: router.pathname,
-             query: { ...query, page }
-           })
+   <FormControl>
+    <Grid
+     container
+     spacing={4}
+     sx={{
+       justifyContent: 'center'
+     }}
+    >
+     <Grid item>
+      <TextField
+       size="small"
+       error={!!errors.email}
+       id="outlined-required"
+       variant="outlined"
+       label="Email"
+       {...register('email', {
+         required: true,
+         validate: email => email.match(emailRegex)
+       })}
+      />
+     </Grid>
+     <Grid item>
+      <TextField
+       size="small"
+       error={!!errors.firstName}
+       id="outlined-required"
+       label="Fist Name"
+       variant="outlined"
+       {...register('firstName', { validate: value => value.length > 0 })}
+      />
+     </Grid>
+     <Grid item>
+      <TextField
+       size="small"
+       error={!!errors.lastName}
+       id="outlined-required"
+       label="Last Name"
+       variant="outlined"
+       {...register('lastName', { validate: value => value.length > 0 })}
+      />
+     </Grid>
+     <Grid item>
+      <TextField
+       size="small"
+       error={!!errors.phone}
+       id="outlined-required"
+       label="Phone"
+       variant="outlined"
+       {...register('phone', {
+         validate: {
+           size: value => value.length >= 6 && value.length <= 10
          }
-        />
-       </Stack>
-      </TableCell>
-     </TableRow>
-    </TableBody>
-   </Table>
-    )
-  )
-}
+       })}
+       helperText={
+        errors?.phone?.type === 'size' &&
+        'Phone must contain between 6 \n and 10 characters'
+       }
+      />
+     </Grid>
+     <Grid item>
+      <Button
+       sx={{
+         m: 1
+       }}
+       fullWidth
+       type="submit"
+       variant="contained"
+       color="primary"
+       onClick={handleSubmit(data =>
+         axios
+           .post('https://bkbnchallenge.herokuapp.com/contacts/', data)
+           .then(() => {
+             router.push('/contacts')
+             setState({
+               ...state,
+               alert: {
+                 type: 'success',
+                 message: 'Contact created successfully'
+               }
+             })
+           })
+           .catch(error => {
+             setState({
+               ...state,
+               alert: {
+                 type: 'error',
+                 message: error.response.data.message
+               }
+             })
+           })
+       )}
+      >
+       Create
+      </Button>
 
-Contacts.getInitialProps = async ({ query }: NextPageContext) => {
-  // `getStaticProps` is executed on the server side.
-  const { data }: { data: ResponseType } = await axios.get(
-    'https://bkbnchallenge.herokuapp.com/contacts',
-    {
-      params: query
-    }
+      <Button
+       sx={{
+         m: 1
+       }}
+       fullWidth
+       variant="outlined"
+       color="error"
+       onClick={() => router.push('/contacts')}
+      >
+       Cancel
+      </Button>
+     </Grid>
+    </Grid>
+   </FormControl>
+  </Container>
   )
-
-  return {
-    data,
-    query
-  }
 }
 
 export default Contacts

@@ -8,8 +8,8 @@ import {
   createTheme,
   CssBaseline,
   IconButton,
-  Link,
   Menu,
+  Snackbar,
   Toolbar,
   Typography,
   useMediaQuery
@@ -17,6 +17,10 @@ import {
 import type { AppProps } from 'next/app'
 import { useMemo } from 'react'
 import { theme } from '../utils/theme'
+import { RecoilRoot, useRecoilState } from 'recoil'
+import { State } from '../utils/state'
+import MuiAlert from '@mui/material/Alert'
+import Link from 'next/link'
 
 /**
  *  Main Backbone Component
@@ -38,10 +42,26 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
       }),
     [mode]
   )
+  const [{ alert, ...state }, setState] = useRecoilState(State)
 
   return (
   <ThemeProvider theme={themeSwitchable}>
    <CssBaseline />
+   <Snackbar
+    open={!!alert.message}
+    autoHideDuration={6000}
+    onClose={() =>
+      setState({
+        ...state,
+        alert: {
+          ...alert,
+          message: ''
+        }
+      })
+    }
+   >
+    <MuiAlert severity={alert.type}>{alert.message}</MuiAlert>
+   </Snackbar>
    <AppBar position="static" color="primary">
     <Toolbar>
      <IconButton
@@ -58,7 +78,7 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
        variant="h6"
        noWrap
        component="div"
-       sx={{ display: { xs: 'none', sm: 'block' } }}
+       sx={{ display: { xs: 'none', sm: 'block', cursor: 'pointer' } }}
       >
        Contacts
       </Typography>
@@ -88,4 +108,10 @@ const BackBone = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default BackBone
+const App = (props: AppProps) => (
+ <RecoilRoot>
+  <BackBone {...props} />
+ </RecoilRoot>
+)
+
+export default App
