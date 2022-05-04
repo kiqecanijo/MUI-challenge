@@ -1,11 +1,13 @@
-#Challenge [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
-Deploy on **Vercel** 👆
+# Challenge  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
+Deploy it on **Vercel** 👆
+Or Check the existing one here:
+[https://backbone-challenge.vercel.app](https://backbone-challenge.vercel.app/contacts "https://backbone-challenge.vercel.app")
 
 ## Philosophy
 
-_"Make it simple"_
-_"Create a UI for the API"_
-_"Be worried about how, and not what"_
+* "Make it simple"
+* "Create a UI for the API"
+* "Be worried about how, and not what"
 
 ## Features
 
@@ -21,12 +23,13 @@ _"Be worried about how, and not what"_
 |    Jest    |    ✅    |                                              minimal jest coverage                                              |
 |   Redux    |    ⚠️    |                                               used recoil instead                                               |
 |   Recoil   |    ✅    |                                           Powerfull state manager 💪                                            |
+|   PWA   |    ⛔️   |                                    Not required for this challenge                                          |
 
 ## Cool details:
 
 - **All Components, variants sizes, rounds, and more are previously <br> handled by the design system, check all the setup here:**
 
-`https://www.figma.com/file/MtBHPh5dbpvMKceYL3NYJW/MUI-for-Figma-v5.4.0---Material-UI?node-id=4662%3A14`
+[Design system](https://www.figma.com/file/MtBHPh5dbpvMKceYL3NYJW/MUI-for-Figma-v5.4.0---Material-UI?node-id=4662%3A14 "Design system")
 
 |                                                                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -42,3 +45,10 @@ _"Be worried about how, and not what"_
   for example:
   `/contacts?&page=2&_sort=firstName:ASC`
   `/contacts?perPage=10&page=1&firstName_contains=Rick`
+
+- **Redux** has been replaced by **Recoil**, if you are familiar with `useState` , then you will find it really easy to use/
+
+- **Vercel** testing and a couple `Test` to evaluated,code enforced using TS
+
+- and much **more** 😎
+
