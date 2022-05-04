@@ -5,7 +5,6 @@ import {
   AppBar,
   Box,
   Container,
-  createTheme,
   CssBaseline,
   IconButton,
   Menu,
@@ -15,12 +14,12 @@ import {
   useMediaQuery
 } from '@mui/material'
 import type { AppProps } from 'next/app'
-import { useMemo } from 'react'
-import { theme } from '../utils/theme'
-import { RecoilRoot, useRecoilState } from 'recoil'
-import { State } from '../utils/state'
+
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { State, Theme } from '../utils/state'
 import MuiAlert from '@mui/material/Alert'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 /**
  *  Main Backbone Component
@@ -29,38 +28,36 @@ import Link from 'next/link'
  */
 
 const BackBone = ({ Component, pageProps }: AppProps) => {
-  const mode = useMediaQuery('(prefers-color-scheme: light)') ? 'light' : 'dark'
+  const browserTheme = useMediaQuery('(prefers-color-scheme: light)')
+  const [state, setState] = useRecoilState(State)
 
-  const themeSwitchable = useMemo(
-    () =>
-      createTheme({
-        ...theme[mode],
-        spacing: 8,
-        shape: {
-          borderRadius: 20
-        }
-      }),
-    [mode]
-  )
-  const [{ alert, ...state }, setState] = useRecoilState(State)
+  useEffect(() => {
+    setState({
+      ...state,
+      mode: browserTheme ? 'light' : 'dark'
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [browserTheme])
+
+  const themeSwitchable = useRecoilValue(Theme)
 
   return (
   <ThemeProvider theme={themeSwitchable}>
    <CssBaseline />
    <Snackbar
-    open={!!alert.message}
+    open={!!state.alert.message}
     autoHideDuration={6000}
     onClose={() =>
       setState({
         ...state,
         alert: {
-          ...alert,
+          ...state.alert,
           message: ''
         }
       })
     }
    >
-    <MuiAlert severity={alert.type}>{alert.message}</MuiAlert>
+    <MuiAlert severity={state.alert.type}>{state.alert.message}</MuiAlert>
    </Snackbar>
    <AppBar position="static" color="primary">
     <Toolbar>

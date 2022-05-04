@@ -15,3 +15,11 @@ export interface ResponseType {
  totalPages: number
  results: ContactType[]
 }
+
+export interface StateType {
+ mode: 'light' | 'dark'
+ alert: {
+  type: 'success' | 'error' | 'info' | 'warning'
+  message: string
+ }
+}

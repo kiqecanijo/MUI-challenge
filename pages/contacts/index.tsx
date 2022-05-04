@@ -117,9 +117,10 @@ const Contacts = ({
        bottom: 50,
        right: 50
      }}
+     onClick={() => router.push('/contacts/create')}
      aria-label="add"
     >
-     <Add onClick={() => router.push('/contacts/create')} />
+     <Add />
     </Fab>
    </>
     )
