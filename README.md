@@ -1,34 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#Challenge [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
+Deploy on **Vercel** 👆
 
-## Getting Started
+## Philosophy
 
-First, run the development server:
+_"Make it simple"_
+_"Create a UI for the API"_
+_"Be worried about how, and not what"_
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| _Feature _ | _Status_ |                                                   _Comments_                                                    |
+| :--------: | :------: | :-------------------------------------------------------------------------------------------------------------: |
+|    SSR     |    ✅    |                    data provided from server, not browser <br> perfect match between both 👌🏼                    |
+|    MUI     |    ✅    | added a full design system bassed<br> on a color schema <br> suppport for dark mode from user preferences 🌙 ☀️ |
+| Typescript |    ✅    |                                   100% typescipt coverage without any any 🥁                                    |
+| Storybook  |   ⛔️    |                                    no custom components added, not required                                     |
+|  Prettier  |    ✅    |                                              custom prettier rules                                              |
+|   Eslint   |    ✅    |                    custom eslint rules, no conflics using <br> **prettier eslint** in VScode                    |
+|     CD     |    ✅    |                                            **Vercel** implementation                                            |
+|    Jest    |    ✅    |                                              minimal jest coverage                                              |
+|   Redux    |    ⚠️    |                                               used recoil instead                                               |
+|   Recoil   |    ✅    |                                           Powerfull state manager 💪                                            |
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Cool details:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **All Components, variants sizes, rounds, and more are previously <br> handled by the design system, check all the setup here:**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`https://www.figma.com/file/MtBHPh5dbpvMKceYL3NYJW/MUI-for-Figma-v5.4.0---Material-UI?node-id=4662%3A14`
 
-## Learn More
+|                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![demo](https://i.ibb.co/Lk6RNJn/Screen-Shot-2022-05-04-at-0-39-49.png 'demo')](https://i.ibb.co/Lk6RNJn/Screen-Shot-2022-05-04-at-0-39-49.png 'demo') |
 
-To learn more about Next.js, take a look at the following resources:
+- **Server and browser render math after hydratation in all routes**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| _Server generated_                                                                                      | _Broser hydratation_                                                                                    |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [![server](https://i.ibb.co/jw8wGyb/result.png 'server')](https://i.ibb.co/jw8wGyb/result.png 'server') | [![server](https://i.ibb.co/jw8wGyb/result.png 'server')](https://i.ibb.co/jw8wGyb/result.png 'server') |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `/contacts` **route its a UI for you API, all your params can be used here**
+  for example:
+  `/contacts?&page=2&_sort=firstName:ASC`
+  `/contacts?perPage=10&page=1&firstName_contains=Rick`
