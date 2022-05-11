@@ -108,9 +108,12 @@ const Contact = ({ contact }: { contact: ContactType }) => {
        type="submit"
        variant="contained"
        color="primary"
-       onClick={handleSubmit(() =>
+       onClick={handleSubmit(data =>
          axios
-           .put(`https://bkbnchallenge.herokuapp.com/contacts/${contact._id}`)
+           .put(
+          `https://bkbnchallenge.herokuapp.com/contacts/${contact._id}`,
+          data
+           )
            .then(() => {
              router.push('/contacts')
              setState({
